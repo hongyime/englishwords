@@ -1,0 +1,12 @@
+{
+  "task": "Repair word generation and preserve existing output",
+  "branch": "fix/bounded-word-generation",
+  "base": "main",
+  "cause": "The original program exceeds Python's static nesting limit and materializes each entire length before writing, with all lengths invoked at import",
+  "behavior": "Require an explicit maximum length; estimate exact output; stream combinations within word/byte limits; publish a complete file without replacing an existing path",
+  "preservation": "Existing outputs are refused, concurrent destinations are preserved, and failed/interrupted attempts retain partial files",
+  "validation": "14 local synthetic cases passed; new Linux/Windows workflow must pass with required repository checks before release",
+  "scope": "Local standard-library CLI; no application database, network calls, hosted runtime or Vercel deployment changes",
+  "release_contract": "Use the repository's four-section PR template and a Conventional Commit against main; preserve all raw checkout files",
+  "hosted_validation": "All 14 tests passed on Linux and Windows. Existing label workflow failed because it used a missing config; point it to the existing labels.yml, retain required checks and validate the new head before merge."
+}
