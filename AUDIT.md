@@ -1,33 +1,11 @@
-# AUDIT.md — englishwords
+# Audit — englishwords
 
-Generated: 20260524
+Updated: 2026-09-15
 
-## 0. FILESYSTEM HEALTH REPORT
-No corrupted, orphaned, or sync artifact files detected.
+The original entry point fails to compile because its nested loops exceed Python's static block limit. Its top-level execution also attempts every length from 1 through 26, materializes full lists and opens `words.txt` for replacement. The earlier generic audit did not detect these defects.
 
-## 1. MASTER FEATURE MAP
-| File | Purpose | Key Functions |
-|------|---------|---------------|| englishwords.py | Source file | (see source) |
+The repair uses a streaming iterator, an explicit maximum length, exact output estimates and independent word/byte limits. Existing output paths are refused. A same-directory temporary file preserves partial results on failure, and exclusive publication protects a destination created concurrently.
 
-## 2. RECONCILIATION SUMMARY
-Small utility project. Documentation matches implementation.
+Local validation: 14 synthetic tests pass on Python 3.12. They cover 702 ordered one/two-letter entries, byte counts, a bounded-memory prefix of the 26-letter sequence, dry runs, workload limits, existing outputs, a publication race, interruption, unsupported publication and cleanup failure. The original source fails during test import with `SyntaxError: too many statically nested blocks`.
 
-## 3-5. GAPS / GHOSTS / DRIFT
-None identified for this project scope.
-
-## 6. DATA INTEGRITY
-N/A — no databases.
-
-## 7. CODE QUALITY FINDINGS
-| Tag | Description | Severity |
-|-----|-------------|----------|
-| [DEAD] | No dead code detected | N/A |
-
-## 8. STRUCTURAL REORGANIZATION
-No reorganization needed — structure appropriate for project size.
-
-## 9. PRODUCTION READINESS
-N/A — personal/educational utility, not a production service.
-
-## 10. REMEDIATION ROADMAP
-No remediation actions required.
+The new GitHub workflow verifies the same suite on Linux and Windows; repository checks must pass before release. No real word lists, database records, credentials, external providers or hosted services were opened or changed for validation. This repair reduces local generation memory use; it is not a Vercel CPU or monthly quota measurement.

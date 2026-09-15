@@ -40,3 +40,9 @@ skills/
 skills-lock.json
 docs/
 # End AI / editor dot directories (managed via sourcerepo)
+
+# Local Python caches and generated word lists
+__pycache__/
+*.py[cod]
+/words.txt
+*.partial

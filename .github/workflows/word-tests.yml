@@ -1,0 +1,33 @@
+name: Word Generation Tests
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ["englishwords.py", "tests/**", ".github/workflows/word-tests.yml"]
+  push:
+    branches: [main]
+    paths: ["englishwords.py", "tests/**", ".github/workflows/word-tests.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: word-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Word tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.12"
+      - name: Test generation with temporary fixture files
+        run: python -m unittest discover -s tests -v
