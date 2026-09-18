@@ -1,5 +1,8 @@
 # englishwords
 
+**Live:** https://hongyime.github.io/englishwords/
+
+![screenshot](./screenshot.png)
 Generate lowercase letter combinations, including gibberish, in alphabetical order within each word length. Python 3.11 or newer is required; there are no third-party dependencies.
 
 ## Usage
